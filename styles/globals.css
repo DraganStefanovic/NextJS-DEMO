@@ -7,10 +7,15 @@ body {
 }
 
 a {
-  color: inherit;
+  color: #1592e6;
   text-decoration: none;
 }
 
 * {
   box-sizing: border-box;
+}
+
+.standard-wrap {
+  max-width: 1280px;
+  margin: 0 auto;
 }
