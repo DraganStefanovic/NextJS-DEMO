@@ -1,3 +1,5 @@
 .header {display: flex; align-items: center; justify-content: space-between;}
 .header ul {list-style: none; display: flex;}
 .header ul li {margin-right: 15px;}
+.header a {color: #fff;}
+.logo img {    display: block!important; max-height: 30px; margin: 15px 0;  position: relative;}

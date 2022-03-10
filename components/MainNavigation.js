@@ -1,9 +1,13 @@
 import React from 'react';
 import Link from 'next/link';
-import classes from './mainNavigation.module.css';
+import classes from '../styles/mainNavigation.module.css';
 import { useRouter } from "next/router";
 import { useSelector, useDispatch} from "react-redux";
-import {logout, login} from '../store/userStore';
+import {logout, login, loginPopUpHandler} from '../store/userStore';
+
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUser } from '@fortawesome/free-solid-svg-icons'
 
 
 function MainNavigation(props) {
@@ -12,9 +16,11 @@ function MainNavigation(props) {
     const dispatch = useDispatch();
 
     const isUserLogin = useSelector((state) => state.userSlice.isAuthenticated);
-    console.log(isUserLogin)
+    console.log(isUserLogin)   
 
-    
+    const loginPopUpState = useSelector((state) => state.userSlice.loginPopUp);
+
+    console.log(loginPopUpState + " stateLogin")
     
 
       function hlogin()  {
@@ -27,18 +33,34 @@ function MainNavigation(props) {
         console.log(isUserLogin)
     }
 
+    function tooglePopUp()  {
+        dispatch(loginPopUpHandler());
+        
+    }
+
+
+
+
+
+  
 
 
     return(
         <header className={classes.header}>
-            <h1>Logo!</h1>  
+            <div className='standard-wrap menu'>
+            <div className={classes.logo}>
+                <img src="https://cdn.mikroe.com/img/mega-menu/mikroe-timesaving-white.png"/>
+            </div>
             <p onClick={hlogin}>Login in</p>   
             <p onClick={hlogout}>Login OUT</p>          
             <ul>
                 <li className={router.pathname == "/cars" ? "active" : ""}><Link href='/cars'>Cars</Link></li>
                 <li className={router.pathname == "/user" ? "active" : ""}><Link href='/user'>User</Link></li>
-                <li className={router.pathname == "/adduser" ? "active" : ""}><Link href='/adduser'>Add User</Link></li>                
+                <li className={router.pathname == "/adduser" ? "active" : ""}><Link href='/adduser'>Add User</Link></li>   
+                <li onClick={tooglePopUp}><FontAwesomeIcon icon={faUser} /></li>             
             </ul>
+            </div>
+        
         </header>
     )
 }

@@ -3,6 +3,7 @@ import {createSlice} from '@reduxjs/toolkit';
 
 const initialState = {
     value: 2, 
+    loginPopUp:false,
     isAuthenticated: false,
 }
 
@@ -26,12 +27,15 @@ export const userSlice = createSlice({
         logout: (state) => {
         state.isAuthenticated = false;
         },
+        loginPopUpHandler: (state) => {
+            state.loginPopUp = !state.loginPopUp
+        }
       },
    
 })
 
 
-export const {increment, decrement, incrementByAmount,login, logout  } = userSlice.actions;
+export const {increment, decrement, incrementByAmount,login, logout, loginPopUpHandler  } = userSlice.actions;
 export default userSlice.reducer;
 
 
