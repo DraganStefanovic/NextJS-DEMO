@@ -46,8 +46,7 @@ function AddUser() {
     return(
        
         <Layout>
-            <h1 >Add New User</h1>
-            <p>Some User description</p>
+            <h1 className={classes.pageTitle}>Create account</h1>            
             <section className={classes.auth}>
                 <form>
                     <div className={classes.control}>

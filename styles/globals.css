@@ -22,7 +22,14 @@ a {
 
 .menu.standard-wrap {display: flex; justify-content: space-between; width: 100%;}
 header {background: #121212; color: #fff;} 
+main {margin-top: 30px;}
 
 
-.popUp {position: fixed; display: block; margin: 0!important; right: 220px;}
+.popUp {position: fixed; display: block; margin: 0!important; right: 120px; top: 60px;}
 .popUp.actions {display: flex;}
+
+.CarsHorisontBox {    display: flex; justify-content: space-between; border: 1px solid #dfdfdf; border-radius: 5px; margin-bottom: 30px;}
+.CarsHorisontBoxImage img { max-width: 400px; }
+.CarsHorisontBoxTitle{}
+.CarsHorisontBoxReg{}
+

@@ -1,15 +1,23 @@
 import React, { Fragment } from 'react';
 import classes from '../styles/AuthForm.module.css';
 import Link from 'next/link';
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import {loginPopUpHandler} from '../store/userStore';
 
 
 
 function UserLogin(props) {    
     
-    const loginPopUpState = useSelector((state) => state.userSlice.loginPopUp);
+    const loginPopUpState = useSelector((state) => state.userSlice.loginPopUp);    
+    const dispatch = useDispatch();
 
-    console.log(loginPopUpState + " stateLogin")
+    function tooglePopUp(e)  {
+        e.preventDefault();
+        e.stopPropagation();
+        dispatch(loginPopUpHandler());
+        console.log("toogle")
+        
+    }  
 
     return(
         <React.Fragment > 
@@ -23,8 +31,11 @@ function UserLogin(props) {
                     <label htmlFor='password'>Your Password</label>
                     <input type='password' id='password' required  />
                     </div>
-                    <div className={classes.actions + ' ' + classes.flex}>                          
-                        <Link href='/adduser'>Create account</Link>             
+                    <div className={classes.actions + ' ' + classes.flex}>      
+                    <div onClick={tooglePopUp}>
+                    <Link  href='/adduser'>Create account</Link>    
+                    </div>                    
+                                 
                     <button
                         type='button'
                         className={classes.toggle}                        

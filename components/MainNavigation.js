@@ -16,11 +16,7 @@ function MainNavigation(props) {
     const dispatch = useDispatch();
 
     const isUserLogin = useSelector((state) => state.userSlice.isAuthenticated);
-    console.log(isUserLogin)   
-
-    const loginPopUpState = useSelector((state) => state.userSlice.loginPopUp);
-
-    console.log(loginPopUpState + " stateLogin")
+    console.log(isUserLogin)      
     
 
       function hlogin()  {
@@ -36,27 +32,24 @@ function MainNavigation(props) {
     function tooglePopUp()  {
         dispatch(loginPopUpHandler());
         
-    }
-
-
-
-
-
-  
+    }  
 
 
     return(
         <header className={classes.header}>
             <div className='standard-wrap menu'>
-            <div className={classes.logo}>
-                <img src="https://cdn.mikroe.com/img/mega-menu/mikroe-timesaving-white.png"/>
-            </div>
+            <Link href='/'>
+                <div className={classes.logo}>
+                    <img src="https://cdn.mikroe.com/img/mega-menu/mikroe-timesaving-white.png"/>
+                </div>
+            </Link>
             <p onClick={hlogin}>Login in</p>   
             <p onClick={hlogout}>Login OUT</p>          
             <ul>
                 <li className={router.pathname == "/cars" ? "active" : ""}><Link href='/cars'>Cars</Link></li>
                 <li className={router.pathname == "/user" ? "active" : ""}><Link href='/user'>User</Link></li>
-                <li className={router.pathname == "/adduser" ? "active" : ""}><Link href='/adduser'>Add User</Link></li>   
+                <li className={router.pathname == "/adduser" ? "active" : ""}><Link href='/adduser'>Add User</Link></li> 
+                <li className={router.pathname == "/addcar" ? "active" : ""}><Link href='/addcar'>Add Car</Link></li>     
                 <li onClick={tooglePopUp}><FontAwesomeIcon icon={faUser} /></li>             
             </ul>
             </div>
