@@ -3,8 +3,7 @@ import React from 'react';
 
 function CarsHorisontBox(props) {   
 
-    console.log(props )
-
+    console.log(props );
     
     return(            
             <React.Fragment>
