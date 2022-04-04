@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Link from 'next/link';
 import classes from '../styles/mainNavigation.module.css';
 import { useRouter } from "next/router";
@@ -31,6 +31,7 @@ function MainNavigation(props) {
 
     function tooglePopUp()  {
         dispatch(loginPopUpHandler());
+
         
     }  
 
@@ -47,10 +48,10 @@ function MainNavigation(props) {
             <p onClick={hlogout}>Login OUT</p>          
             <ul>
                 <li className={router.pathname == "/cars" ? "active" : ""}><Link href='/cars'>Cars</Link></li>
+                <li className={router.pathname == "/addcar" ? "active" : ""}><Link href='/addcar'>Add Car</Link></li>    
                 <li className={router.pathname == "/user" ? "active" : ""}><Link href='/user'>User</Link></li>
-                <li className={router.pathname == "/adduser" ? "active" : ""}><Link href='/adduser'>Add User</Link></li> 
-                <li className={router.pathname == "/addcar" ? "active" : ""}><Link href='/addcar'>Add Car</Link></li>     
-                <li onClick={tooglePopUp}><FontAwesomeIcon icon={faUser} /></li>             
+                <li className={router.pathname == "/adduser" ? "active" : ""}><Link href='/adduser'>Add User</Link></li>                  
+                <li className='userIcon' onClick={tooglePopUp}><FontAwesomeIcon icon={faUser} /></li>             
             </ul>
             </div>
         

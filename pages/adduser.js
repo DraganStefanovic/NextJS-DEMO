@@ -2,46 +2,73 @@ import React, { Fragment } from 'react';
 import Layout from '../components/Layout';
 import classes from '../styles/AuthForm.module.css'
 import { useRef } from 'react';
+import { hash, bcrypt } from 'bcryptjs';
 
 
 function AddUser() {
 
     const emailInputRef = useRef();
-    const passwordInputRef = useRef();   
-
-  
+    const passwordInputRef = useRef();  
 
 
    async function sendUserData(event) {
-
+        event.preventDefault();  
         const enteredEmail = emailInputRef.current.value;
         const enteredPassword = passwordInputRef.current.value;
-        event.preventDefault();
-        /// Add Validation...       
-
-        console.log(enteredEmail,  enteredPassword)
-
+        
+         /// Add Validation...  
+                
          const data = {
             email: enteredEmail,
             password: enteredPassword,
-            age: 21,
-            car: "Audi",
+           
         }
 
-        console.log(data)        
-        
-        
-            const response = await fetch('./api/userApi', {
-                method:'POST',
-                body:JSON.stringify(data),
-                headers:{
-                    'Content-Type' : 'application/json'
-                }
-            });           
+        console.log(data)
 
-            console.log(response)
+        const response = await fetch('./api/signUp', {
+            method:'POST',
+            body:JSON.stringify(data),
+            headers:{
+                'Content-Type' : 'application/json'
+            }
+        });           
+
+        console.log(response)            
         
-    }    
+    } 
+    
+    
+    async function logIn (event) {
+        event.preventDefault();  
+        const enteredEmail = emailInputRef.current.value;
+        const enteredPassword = passwordInputRef.current.value;
+        
+         /// Add Validation...  
+                
+         const data = {
+            email: enteredEmail,
+            password: enteredPassword,
+           
+        }
+
+        const response = await fetch('./api/logIn', {
+            method:'POST',
+            body:JSON.stringify(data),
+            headers:{
+                'Content-Type' : 'application/json'
+            }
+        }); 
+
+        console.log("Login")
+
+    }
+
+
+
+
+
+
 
     return(
        
@@ -63,8 +90,18 @@ function AddUser() {
                         className={classes.toggle}
                         onClick={sendUserData}
                     >
-                    Send
+                    SignUp
                     </button>
+
+                    <button
+                        type='button'
+                        className={classes.toggle}
+                        onClick={logIn}
+                    >
+                    LogIn
+                    </button>
+
+
                     </div>
                 </form>
             </section>
