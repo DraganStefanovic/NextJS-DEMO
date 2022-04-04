@@ -5,11 +5,11 @@ import classes from '../styles/AuthForm.module.css';
 import FileBase64 from 'react-file-base64';
 import { useRouter } from "next/router";
 
-function addCar() {
+function AddCar() {
     
     const router = useRouter()
     const [item, setItem] = useState({title:'', image: '', regvalue:'', date:''});
-    const [items, setItems] = useState([])
+  
 
     const onSubmitHadler = async (e) => {
         e.preventDefault();
@@ -64,4 +64,4 @@ function addCar() {
     )
 }
 
-export default addCar;
+export default AddCar;
