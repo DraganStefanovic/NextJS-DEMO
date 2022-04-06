@@ -5,37 +5,45 @@ const initialState = {
     value: 2, 
     loginPopUp:false,
     isAuthenticated: false,
+    userLoginMsg: '',
+    userSignUpMsg:'',
+    userName:'',
+    userSurname:'', 
 }
 
 export const userSlice = createSlice({
     name:'counter',
     initialState,
-    reducers: {
-        increment:(state) => {
-            state.value += 1;            
+    reducers: {        
+          
+        insertuserLoginMsg:(state, msg) => { 
+           state.userLoginMsg = msg.payload;
         },
-        decrement:(state) => {
-            state.value -=1
-        },
-        incrementByAmount: (state, action) => {
-            state.value += action.payload
-        },
+        insertuserSignUpMsg:(state, msg) => { 
+            state.userSignUpMsg = msg.payload;
+         },      
         login: (state) => {
-            state.isAuthenticated = true;
-            console.log(state.isAuthenticated + "Slice")
+            state.isAuthenticated = true;            
         },
         logout: (state) => {
-        state.isAuthenticated = false;
+            state.isAuthenticated = false;
+            state.userLoginMsg = "User LogOUT"
         },
         loginPopUpHandler: (state) => {
             state.loginPopUp = !state.loginPopUp
-        }
+        },
+        userServerName: (state, res) => {
+           
+        },
+        userServerSurname: (state, res) => {
+            
+        },
       },
    
 })
 
 
-export const {increment, decrement, incrementByAmount,login, logout, loginPopUpHandler  } = userSlice.actions;
+export const { login, logout, loginPopUpHandler, insertuserLoginMsg, insertuserSignUpMsg, userServerData  } = userSlice.actions;
 export default userSlice.reducer;
 
 

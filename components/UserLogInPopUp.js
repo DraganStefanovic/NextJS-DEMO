@@ -2,13 +2,22 @@ import React, { Fragment, useEffect, useRef  } from 'react';
 import classes from '../styles/AuthForm.module.css';
 import Link from 'next/link';
 import { useSelector, useDispatch } from "react-redux";
-import {loginPopUpHandler} from '../store/userStore';
+import {loginPopUpHandler, login,logout, userServerName, userServerSurname, insertuserLoginMsg} from '../store/userStore';
+import { useRouter } from "next/router";
 
 
 
 function UserLogInPopUp(props) {    
+
+    const emailInputRef = useRef();
+    const passwordInputRef = useRef();      
+    const loginPopUpState = useSelector((state) => state.userSlice.loginPopUp); 
+    const msguserLoginMsg = useSelector((state) => state.userSlice.userLoginMsg);   
     
-    const loginPopUpState = useSelector((state) => state.userSlice.loginPopUp);    
+    const isUserLogin = useSelector((state) => state.userSlice.isAuthenticated);
+    const router = useRouter()
+        
+
     const dispatch = useDispatch();
 
     function tooglePopUp(e)  {
@@ -35,8 +44,45 @@ function UserLogInPopUp(props) {
 
     }
 
+    function LogOut() {
+        dispatch(logout());  
+    }
 
-   
+    async function logIn (event) {
+        event.preventDefault();  
+        const enteredEmail = emailInputRef.current.value;
+        const enteredPassword = passwordInputRef.current.value;
+        
+         /// Add Validation...  
+                
+         const data = {
+            email: enteredEmail,
+            password: enteredPassword,
+           
+        }
+
+        const response = await fetch('./api/logIn', {
+            method:'POST',
+            body:JSON.stringify(data),
+            headers:{
+                'Content-Type' : 'application/json'
+            }
+        }); 
+
+        const responseData = await response.json(); 
+        console.log(responseData) 
+        dispatch(insertuserLoginMsg(responseData.message));    
+        
+        if(responseData.UserExisting) {            
+            dispatch(login());            
+            router.push('/user');
+                     
+            
+            
+        }
+
+
+    }   
 
 
 
@@ -45,18 +91,20 @@ function UserLogInPopUp(props) {
             {loginPopUpState &&<section  ref={box} className={`popUp ${classes.auth}`}>
                 <form >
                     <div className={classes.control}>
-                    <label htmlFor='email'>Your Email</label>
-                    <input type='email' id='email' required  />
+                        <label htmlFor='email'>Your Email</label>
+                        <input type='email' id='email' required  ref={emailInputRef}  />
                     </div>
                     <div className={classes.control}>
-                    <label htmlFor='password'>Your Password</label>
-                    <input type='password' id='password' required  />
+                        <label htmlFor='password'>Your Password</label>
+                        <input type='password' id='password' required   ref={passwordInputRef} />
                     </div>
+                    <p>{msguserLoginMsg}</p>
                     <div className={classes.actions + ' ' + classes.flex}>      
-                    <div onClick={tooglePopUp}>
-                    <Link  href='/adduser'>Create account</Link>    
-                    </div>       
-                        <button type='button' className={classes.toggle}>LogIn</button>
+                        <div onClick={tooglePopUp}>
+                           {!isUserLogin && <Link  href='/adduser'>Create account</Link>    }
+                        </div>       
+                           {!isUserLogin && <button type='button' onClick={logIn} className={classes.toggle}>LogIn</button> } 
+                           {isUserLogin && <button type='button' onClick={LogOut} className={classes.toggle}>LogOut</button> } 
                     </div>
                 </form>
             </section>

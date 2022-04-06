@@ -5,8 +5,8 @@ function HomePage() {
 
     return(        
             <Layout>
-                <h1>Home Page</h1>
-                <p>Some text description</p>
+                <div className='baner'></div>
+                
             </Layout>   
            
     )

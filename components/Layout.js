@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import MainNavigation from './MainNavigation';
 import {useDispatch, useSelector} from "react-redux";
 import UserLogInPopUp from './UserLogInPopUp'
-import { increment } from '../store/userStore';
+
 
 function Layout(props) {    
 
@@ -14,9 +14,8 @@ function Layout(props) {
     return(
         <React.Fragment>
             <MainNavigation />
-            <div className='standard-wrap'>                
-                <UserLogInPopUp/>
-                <p>{count}</p>
+            <div className='standard-wrap pages'>                
+                <UserLogInPopUp/>                
                 <main>{props.children}</main>
             </div>      
         </React.Fragment>
