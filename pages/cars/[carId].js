@@ -17,14 +17,11 @@ function CarId(props) {
 
     const router = useRouter();
     const currentUrlis = router.query.carId;
-
     
 
     const dispatch = useDispatch(); 
     dispatch(getUrlforFetchData(`${currentUrlis}`));      
-
-    console.log(props)
-  
+ 
 
 
     const [image, setImage] = useState({ imageSrc: '' });
@@ -44,9 +41,7 @@ function CarId(props) {
             original: 'https://thumbs.dreamstime.com/b/no-image-available-icon-photo-camera-flat-vector-illustration-132483141.jpg',
             thumbnail: 'https://thumbs.dreamstime.com/b/no-image-available-icon-photo-camera-flat-vector-illustration-132483141.jpg',
         }]
-    }  
-
-        
+    }         
 
  
 
@@ -63,15 +58,10 @@ function CarId(props) {
         headers:{
             'Content-Type' : 'application/json'
         }
-    }); 
-
-    
+    });    
 
 
-}
-
-
-         
+}        
 
 
 
@@ -134,16 +124,10 @@ export async function getServerSideProps(context) {
     const client = await MongoClient.connect(
       'mongodb+srv://Admin:admin123@cluster0.3rzaz.mongodb.net/Cars?retryWrites=true&w=majority'
     );
-    const db = client.db();
-  
+    const db = client.db();  
     const meetupsCollection = db.collection('Car');
-
-    const idRowData = context.params.carId
-  
-    const cars = await meetupsCollection.findOne({regvalue: idRowData});    
-        
-
-
+    const idRowData = context.params.carId  
+    const cars = await meetupsCollection.findOne({regvalue: idRowData}); 
 
     console.log(cars)
   
@@ -162,8 +146,7 @@ export async function getServerSideProps(context) {
                 images: cars.gallery.map((imgSrc) => ({
                     imgSrc
                    
-                  })),
-               
+                  })),              
                
                 
             }
@@ -172,11 +155,7 @@ export async function getServerSideProps(context) {
   
 
    
-  }
-
-
-
-        
+  }    
 
 
 
