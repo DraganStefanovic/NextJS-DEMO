@@ -2,7 +2,6 @@ import React, { Fragment } from 'react';
 import Layout from '../components/Layout';
 import classes from '../styles/AuthForm.module.css'
 import { useRef } from 'react';
-import { hash, bcrypt } from 'bcryptjs';
 import { useSelector, useDispatch } from "react-redux";
 import { insertuserSignUpMsg} from '../store/userStore';
 
@@ -77,7 +76,7 @@ function AddUser() {
                                 <input type='text' id='name' required ref={nameInputRef} />
                             </div>
                             <div className={classes.control}>
-                                <label htmlFor='name'>Last Surname</label>
+                                <label htmlFor='name'>Last Name</label>
                                 <input type='text' id='surname' required ref={surnameInputRef} />
                             </div>
 

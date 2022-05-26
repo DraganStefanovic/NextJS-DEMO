@@ -19,7 +19,8 @@ function MainNavigation(props) {
     console.log(isUserLogin)  
 
     function tooglePopUp()  {
-        dispatch(loginPopUpHandler());        
+        dispatch(loginPopUpHandler());   
+        console.log(isUserLogin)      
     }  
 
 
@@ -33,7 +34,7 @@ function MainNavigation(props) {
             </Link>                     
             <ul>
                 <li className={router.pathname == "/cars" ? "active" : ""}><Link href='/cars'>Cars</Link></li>
-                {isUserLogin && <li className={router.pathname == "/addcar" ? "active" : ""}><Link href='/addcar'>Add Car</Link></li>} 
+                 <li className={router.pathname == "/addcar" ? "active" : ""}><Link href='/addcar'>Add Car</Link></li>
                {isUserLogin && <li className={router.pathname == "/user" ? "active" : ""}><Link href='/user'>User</Link></li>} 
                 {!isUserLogin && <li className={router.pathname == "/adduser" ? "active" : ""}><Link href='/adduser'>SignUp</Link></li>  }                 
                 <li className='userIcon' onClick={tooglePopUp}><FontAwesomeIcon icon={faUser} /></li>             

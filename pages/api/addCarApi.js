@@ -13,15 +13,17 @@ async function AddCarToMongo (req, res) {
     const result = await userCollection.insertOne(data);
 
     console.log(result)
-
+    res.status(201).json({ message: 'Car insert'});
+    
     client.close();
 
 
-    res.status(201).json({
-        message: 'Car insert'
-    })
+   
   }
 }
+
+
+
 
 
 export default AddCarToMongo;

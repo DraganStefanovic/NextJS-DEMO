@@ -75,29 +75,22 @@ function UserLogInPopUp(props) {
         
         if(responseData.UserExisting) {            
             dispatch(login());            
-            router.push('/user');
-                     
-            
-            
+            router.push('/user');              
         }
-
-
     }   
-
-
 
     return(
         <React.Fragment > 
             {loginPopUpState &&<section  ref={box} className={`popUp ${classes.auth}`}>
                 <form >
-                    <div className={classes.control}>
+                    {!isUserLogin && <div><div className={classes.control}>
                         <label htmlFor='email'>Your Email</label>
                         <input type='email' id='email' required  ref={emailInputRef}  />
                     </div>
                     <div className={classes.control}>
                         <label htmlFor='password'>Your Password</label>
                         <input type='password' id='password' required   ref={passwordInputRef} />
-                    </div>
+                    </div> </div>}
                     <p>{msguserLoginMsg}</p>
                     <div className={classes.actions + ' ' + classes.flex}>      
                         <div onClick={tooglePopUp}>

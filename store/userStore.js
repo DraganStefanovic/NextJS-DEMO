@@ -12,7 +12,7 @@ const initialState = {
 }
 
 export const userSlice = createSlice({
-    name:'counter',
+    name:'userStore',
     initialState,
     reducers: {        
           
@@ -30,7 +30,8 @@ export const userSlice = createSlice({
             state.userLoginMsg = "User LogOUT"
         },
         loginPopUpHandler: (state) => {
-            state.loginPopUp = !state.loginPopUp
+            state.loginPopUp = !state.loginPopUp;
+            console.log("store " + state.loginPopUp)
         },
         userServerName: (state, res) => {
            
