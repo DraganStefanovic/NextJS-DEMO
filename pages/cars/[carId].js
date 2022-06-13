@@ -58,10 +58,21 @@ function CarId(props) {
         headers:{
             'Content-Type' : 'application/json'
         }
-    });    
+    });   
+    console.log("Finish") 
 
 
 }        
+
+function handledinamicWrap (e) {
+   // console.log(e.target.id);
+    var element = document.querySelectorAll('.dec-wrap');
+    //var dataAttribute = element.getAttribute('SpecVozila');
+   
+
+    console.log(element)
+
+}
 
 
 
@@ -95,13 +106,54 @@ function CarId(props) {
 
             <div className='description tabMenu'>
                 <div className='row tabs'>
-                    <div className='tab'><p>Registracija vozila</p></div>
-                    <div className='tab'><p>Specifikacija vozila</p></div>
-                    <div className='tab'><p>Gorivo i tekući troškovi</p></div>
-                    <div className='tab'><p>Održavanje</p></div>
-                    <div className='tab'><p>Šteta</p></div>
-                    <div className='tab'><p>Istorija promena</p></div>
+                    <div className='tab'><p onClick={handledinamicWrap} id="RegVozilaMain" className='active'>Registracija vozila</p></div>
+                    <div className='tab'><p onClick={handledinamicWrap} id="SpecVozila">Specifikacija vozila</p></div>
+                    <div className='tab'><p onClick={handledinamicWrap} id="GprivoiTroskovi">Gorivo i tekući troškovi</p></div>
+                    <div className='tab'><p onClick={handledinamicWrap} id="Odrzavanje">Održavanje</p></div>
+                    <div className='tab'><p onClick={handledinamicWrap} id="Steta">Šteta</p></div>
+                    <div className='tab'><p onClick={handledinamicWrap} id="IstorijaPromena">Istorija promena</p></div>
                 </div>
+
+                <div className='dinamicWrap'>                
+
+                    <div id-data="RegVozilaMain" className='wrap-RegVozila dec-wrap'>
+                        <table className="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Datum registracije</th>
+                                    <th>Dokumentacija</th>
+                                    <th>Troškovi registracije</th>
+                                    <th> Registrovao zaposleni</th>
+                                    <th>Vreme zaposlenog</th>
+                                    <th>Registrovan do</th>
+                                    <th className="actions">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>                            
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div id-data="SpecVozila" className='dec-wrap'>
+                        <h3>Specifikacija vozila</h3>
+                    </div>
+                    <div id-data="GprivoiTroskovi"  className='dec-wrap'>
+                        <h3>Gorivo i tekući troškovi</h3>
+                    </div>
+                    <div id-data="Odrzavanje"  className='dec-wrap'>
+                        <h3>Održavanje</h3>
+                    </div>
+
+                    <div id-data="Steta"  className='dec-wrap'>
+                        <h3>Šteta</h3>
+                    </div>
+
+                    <div id-data="IstorijaPromena"  className='dec-wrap'>
+                        <h3>Istorija promena</h3>
+                    </div>   
+                </div>       
+
+
             </div>
 
 

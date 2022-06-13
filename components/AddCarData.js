@@ -3,9 +3,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { useRef } from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import { handlePopUpEditeDataState, handleSavingData} from '../store/carStore';
+import { handlePopUpEditeDataState, handlePopAddData} from '../store/carStore';
 
-function EditCarData(props) {    
+function AddCarData(props) {    
 
     const dispatch = useDispatch();  
     const oldEditeData = useSelector((state) => state.carSlice.oldEditeData); 
@@ -64,15 +64,9 @@ function EditCarData(props) {
         var selectBox = document.getElementById("TipKorisnika");
         var selectedValue = selectBox.options[selectBox.selectedIndex].value;
             if (selectedValue == "Druga Lica") { 
-                setisZaposlen(false);                        
-                    
-                    
-                  
-                //document.getElementById("customVehicleUser")
-                
+                setisZaposlen(false);                
             }else if (selectedValue == "Zaposleni") { 
-                setisZaposlen(true);
-                
+                setisZaposlen(true);                
             }
         }
 
@@ -81,8 +75,7 @@ function EditCarData(props) {
     const saveData = async  (e) => {  
 
         if (validRegNumber) {
-
-        dispatch(handleSavingData());   
+          
         const changedmarkaItip = markaItip.current.value;
         const changedRegNumber = RegNumber.current.value;
         const changedCarUser = CarUser.current.value;
@@ -92,15 +85,14 @@ function EditCarData(props) {
               
 
         const response = await fetch('./api/editDBCar', {
-            method: "PUT",
+            method: "POST",
             headers: {
               'Accept': 'application/json',
               'Content-Type': 'application/json'
             },
           
             //make sure to serialize your JSON body
-            body: JSON.stringify({
-                id: oldEditeData.id,
+            body: JSON.stringify({                
                 title: changedmarkaItip,
                 registration:changedRegNumber,
                 vehicleUser:changedCarUser,
@@ -109,9 +101,8 @@ function EditCarData(props) {
                 voziloAktivnoOd:changedVoziloAktivnoOd       
           } )         
 
-          }).then(
-            
-            dispatch(handlePopUpEditeDataState())
+          }).then(            
+            dispatch(handlePopAddData())
 
 
           );      
@@ -119,35 +110,33 @@ function EditCarData(props) {
       
   }
      
-
-    function popUpEditeData(e)  {
-        dispatch(handlePopUpEditeDataState());   
-      } 
-
-
+  function PopUpAddCarFn(e)  {
+    dispatch(handlePopAddData());
+  } 
       
 
     return(
         <Fragment>  
             <div className='bgPopUp'>
             <div className='editRow standard-wrap'>
-                <div className='closeBtn'><FontAwesomeIcon onClick={popUpEditeData} icon={faXmark} /></div>
+                <div className='closeBtn'><FontAwesomeIcon onClick={PopUpAddCarFn} icon={faXmark} /></div>
                 <form>
                     <div className='row'>
                         <div className='col-md-6'>
                             <div>
                                 <label htmlFor='name'>Marka i tip:</label>
-                                <input onBlur={handlemarkaItip} type='text' id='name' defaultValue={oldEditeData.title} required ref={markaItip} />
+                                <input onBlur={handlemarkaItip} type='text' id='name'  required ref={markaItip} />
                                 {!validMarkaItip && <p className='alert error'>Marka i tip vozila moraju da budu duzi od 4</p>}
                             </div>
                             <div>
                                 <label htmlFor='name'>Registracioni Broj:</label>
-                                <input type="name" id='RegNumber' onBlur={alphanumeric} defaultValue={oldEditeData.registration} required ref={RegNumber} />
+                                <input type="name" id='RegNumber' onBlur={alphanumeric}  required ref={RegNumber} />
                                 {!validRegNumber && <p className='alert error'>Registracioni broj mora da bude u formatu SS-BBB(BB)-SS</p>}
                             </div>
                             <div>
                                 <label htmlFor='name'>Tip Korisnika:</label>
-                                <select defaultValue={oldEditeData.tipKorisnika} onChange={changeFuncTipKorisnika} required ref={TipKorisnika} name="TipKorisnika" id="TipKorisnika">
+                                <select onChange={changeFuncTipKorisnika}  defaultValue={'DEFAULT'} required ref={TipKorisnika} name="TipKorisnika" id="TipKorisnika">
+                                    <option value="DEFAULT" disabled hidden>Choose here</option>
                                     <option value="Zaposleni">Zaposleni</option>
                                     <option value="Druga Lica">Druga Lica</option>                                    
                                 </select>                                
@@ -155,13 +144,13 @@ function EditCarData(props) {
                             {!isZaposlen && 
                             <div>
                                 <label htmlFor='name'>Korisnik vozila:</label>
-                                <input id="customVehicleUser" type='text' defaultValue={oldEditeData.vehicleUser} required ref={CarUser} />
+                                <input id="customVehicleUser" type='text'  required ref={CarUser} />
                             </div> }
 
                             {isZaposlen && 
                             <div>
                                 <label htmlFor='name'>Korisnik vozila:</label>
-                                <select type='text' id='CarUser' defaultValue={oldEditeData.vehicleUser} required ref={CarUser} >
+                                <select type='text' id='CarUser' required ref={CarUser} >
                                 <option value="Tanja Milinkovic">Tanja Milinkovic</option>    
                                 <option value="Marko Jovanovic">Marko Jovanovic</option>  
                                 <option value="Srdjan Tomic">Srdjan Tomic</option>   
@@ -176,11 +165,11 @@ function EditCarData(props) {
                         <div className='col-md-6'>
                             <div >
                                 <label htmlFor='date'>Isticanje registracije:</label>
-                                <input type='date' id='RegDateEnd' defaultValue={oldEditeData.date} required ref={RegDateEnd} />
+                                <input type='date' id='RegDateEnd'  required ref={RegDateEnd} />
                             </div>    
                             <div >
                                 <label htmlFor='date'>Vozilo aktivno od:</label>
-                                <input type='date' id='voziloAktivnoOd' defaultValue={oldEditeData.voziloAktivnoOd} required ref={VoziloAktivnoOd} />
+                                <input type='date' id='voziloAktivnoOd' required ref={VoziloAktivnoOd} />
                             </div>                          
                             
                         </div>
@@ -196,4 +185,4 @@ function EditCarData(props) {
     )
 }
 
-export default EditCarData;
+export default AddCarData;

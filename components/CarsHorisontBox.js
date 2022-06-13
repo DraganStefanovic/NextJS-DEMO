@@ -21,32 +21,25 @@ function CarsHorisontBox(props) {
     } 
  
 
-   const editdata = async  (e) => {  
+   const deliteData = async  (e) => {
 
-        const dataRowId = e.target.parentElement.parentElement.dataset.id;
-
+        //const dataRowId = e.target.parentElement.parentElement.dataset.id;
+        const dataRowId = e.target.parentElement.parentElement.parentElement.dataset.id;
         console.log(dataRowId);
 
         const response = await fetch('./api/editDBCar', {
-            method: "post",
+            method: "DELETE",
             headers: {
               'Accept': 'application/json',
               'Content-Type': 'application/json'
-            },
-          
+            },          
             //make sure to serialize your JSON body
             body: JSON.stringify({
-              name: dataRowId,
-              
+              id: dataRowId,              
             })
-          });      
-  
-        const responseData = await response.json(); 
-        console.log(responseData) 
-  }
-
-
-  
+          }); 
+       
+  } 
     
     return(            
             <React.Fragment>
@@ -58,7 +51,7 @@ function CarsHorisontBox(props) {
                     <td className="CarsHorisontBoxDate">{props.date}</td>  
                     <td className="CarsHorisontBoxDate">{props.voziloAktivnoOd}</td>  
                     <td className="CarsHorisontBoxDate text-center">x</td>  
-                    <td className="action"><FontAwesomeIcon onClick={popUpEditeData} className='iconPen' icon={faPen} /><FontAwesomeIcon  className='iconTrash' icon={faTrash} /></td>                              
+                    <td className="action"><FontAwesomeIcon onClick={popUpEditeData} className='iconPen' icon={faPen} /><FontAwesomeIcon onClick={deliteData}  className='iconTrash' icon={faTrash} /></td>                              
                 </tr>
                
             </React.Fragment>           

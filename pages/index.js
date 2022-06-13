@@ -4,19 +4,39 @@ import Layout from '../components/Layout';
 import {MongoClient} from 'mongodb';
 import CarsHorisontBox from '../components/CarsHorisontBox';
 import EditCarData from '../components/EditeCarData'
-
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus,} from '@fortawesome/free-solid-svg-icons'
+import AddCarData from '../components/AddCarData';
+import { handlePopAddData } from '../store/carStore';
+import { FaSearch } from 'react-icons/fa';
 
 
 function HomePage(props) {   
 
  
  const popUpEditeDataState = useSelector((state) => state.carSlice.popUpEditeDataState);
+ const popUpAddDataState = useSelector((state) => state.carSlice.popAddData ) 
+
+ console.log(popUpAddDataState  + "Statw ADD POP")
+
+ const dispatch = useDispatch(); 
+
+
+ const handlePopAddDataFn = () => {
+  dispatch(handlePopAddData());
+ }
+
+
  
     return(        
             <Layout>
                 <div className='baner'></div> 
-                <h1>SLUŽBENA VOZILA</h1>
+                <h1>SLUŽBENA VOZILA</h1> 
+                <div className='headMenu'>
+                  <p className='addCarBtn' onClick={handlePopAddDataFn} ><FontAwesomeIcon icon={faPlus} /> Add car</p>
+                </div>               
+
+
                 <table className="table table-striped">
                 <thead>
                   <tr>
@@ -48,6 +68,10 @@ function HomePage(props) {
                 </table>
                 
                 {popUpEditeDataState && <EditCarData />}
+                {popUpAddDataState && <AddCarData/>}
+                
+
+                
                 
                
             </Layout>   

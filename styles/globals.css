@@ -56,7 +56,10 @@ h1 {
 td.action {padding: 10px 0; justify-content: flex-end;
   display: flex;}
 td.action svg {    max-width: 18px; margin-right: 20px; cursor: pointer;}
-
+.addCarBtn svg {max-width: 20px;  color: #fff;    margin-right: 10px; }
+.addCarBtn { margin: 30px 0;     display: flex; color: #fff; background-color: #2196f3; width: 150px; border-radius: 25px; height: 45px; align-items: center; justify-content: center;   }
+.addCarBtn:hover {background-color: #2196f3;}
+.addCarBtn {float: right; cursor: pointer;}
 
 td.action svg.iconTrash {color:#f44336 ;}
 .bgPopUp {width: 100%; height: 100%; position: absolute; background: #2323238f; right: 0; top: 0; display: flex; align-items: center; justify-content: center;}
@@ -87,3 +90,11 @@ select {    width: 232px; height: 30px; padding: 2px 10px;border-radius: 5px; bo
 .description.tabMenu .tab p { padding: 10px 20px;}
 .description.tabMenu {border-top: 1px solid #999;}
 .description.tabMenu .tab p:hover  { background-color: #03a9f4; color: #fff;}
+.description.tabMenu .tab p.active { background-color: #03a9f4; color: #fff;}
+.dec-wrap {display: none;}
+
+td.action {padding: 17px 10px!important;}
+.table-striped td {line-height: 35px;}
+
+
+

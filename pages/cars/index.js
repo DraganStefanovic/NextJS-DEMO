@@ -2,7 +2,6 @@ import Link from 'next/link';
 import Layout from '../../components/Layout';
 import {MongoClient} from 'mongodb';
 import CarsHorisontBox from '../../components/CarsHorisontBox';
-import CarDriftLoader from '../../components/CarDriftLoader';
 import UserLogInPopUp from '../../components/UserLogInPopUp';
 
 function Cars(props) {     
@@ -39,7 +38,7 @@ function Cars(props) {
                   ))}
                 </tbody>
                 </table>
-                <CarDriftLoader/> 
+                
         </Layout>        
     )
 }
