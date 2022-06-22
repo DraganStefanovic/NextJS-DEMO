@@ -8,7 +8,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus,} from '@fortawesome/free-solid-svg-icons'
 import AddCarData from '../components/AddCarData';
 import { handlePopAddData } from '../store/carStore';
-import { FaSearch } from 'react-icons/fa';
 
 
 function HomePage(props) {   
@@ -17,9 +16,11 @@ function HomePage(props) {
  const popUpEditeDataState = useSelector((state) => state.carSlice.popUpEditeDataState);
  const popUpAddDataState = useSelector((state) => state.carSlice.popAddData ) 
 
- console.log(popUpAddDataState  + "Statw ADD POP")
-
  const dispatch = useDispatch(); 
+
+ console.log(props)
+
+
 
 
  const handlePopAddDataFn = () => {
@@ -102,13 +103,15 @@ export async function getStaticProps() {
           voziloAktivnoOd: car.voziloAktivnoOd
         })),
       },
-      revalidate: 1,
-      
+      revalidate: 1,    
       
     };
 
    
   }
+
+
+
 
 export default HomePage;
 

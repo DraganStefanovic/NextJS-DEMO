@@ -38,10 +38,7 @@ export const carSlice = createSlice({
         },
          handleSavingData: (state) => {
             state.savingdata = true;            
-        },
-        handleSavingDataEnd: (state) => {
-            state.savingdata = false;           
-        },
+        },        
         getUrlforFetchData:(state, msg) => {
             state.currentUrlFd = msg.payload;          
 
@@ -56,7 +53,7 @@ export const carSlice = createSlice({
 })
 
 
-export const { insertCarSignUpMsg, getUrlforFetchData ,loadingDBCarsfn, handlePopUpEditeDataState, handlePopAddData, handleOldEditeData, handleSavingData, handleSavingDataEnd } = carSlice.actions;
+export const { insertCarSignUpMsg, getUrlforFetchData ,loadingDBCarsfn, handlePopUpEditeDataState, handlePopAddData, handleOldEditeData, handleSavingData, } = carSlice.actions;
 export default carSlice.reducer;
 
 

@@ -4,8 +4,19 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { useRef } from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import { handlePopUpEditeDataState, handleSavingData} from '../store/carStore';
+import { useRouter } from 'next/router';
+
 
 function EditCarData(props) {    
+
+    const router = useRouter();
+
+    const refreshData = () => {
+     router.replace(router.asPath);
+     console.log("refreshData")
+   }
+   
+  
 
     const dispatch = useDispatch();  
     const oldEditeData = useSelector((state) => state.carSlice.oldEditeData); 
@@ -21,8 +32,7 @@ function EditCarData(props) {
     const [isZaposlen, setisZaposlen] = useState(false);
     const [validMarkaItip, setisvalidMarkaItip] = useState(true);
     const [validRegNumber, setvalidRegNumber] = useState(true);
-
-    console.log(isZaposlen + " isZaposlen")
+    
 
     useEffect(() => {        
         if (TipKorisnika.current.value == "Zaposleni") {
@@ -35,8 +45,10 @@ function EditCarData(props) {
       function handlemarkaItip () {
           if(markaItip.current.value.length > 3) {
             setisvalidMarkaItip(true)
+            
           }else {
             setisvalidMarkaItip(false)
+           
           }        
           
       }     
@@ -53,10 +65,10 @@ function EditCarData(props) {
         const trimvalidregformat = inputtxt.replace(/-/g, "")
 
             if(trimvalidregformat.match(validregformat) || trimvalidregformat.match(validregformat2) || trimvalidregformat.match(validregformat3) ) {               
-                setvalidRegNumber(true);               
+                setvalidRegNumber(true); 
             }
             else {                 
-                setvalidRegNumber(false)
+                setvalidRegNumber(false)               
             } 
     }
 
@@ -64,9 +76,7 @@ function EditCarData(props) {
         var selectBox = document.getElementById("TipKorisnika");
         var selectedValue = selectBox.options[selectBox.selectedIndex].value;
             if (selectedValue == "Druga Lica") { 
-                setisZaposlen(false);                        
-                    
-                    
+                setisZaposlen(false);                    
                   
                 //document.getElementById("customVehicleUser")
                 
@@ -76,13 +86,10 @@ function EditCarData(props) {
             }
         }
 
-    
+          
 
-    const saveData = async  (e) => {  
-
-        if (validRegNumber) {
-
-        dispatch(handleSavingData());   
+    const saveData = async  (e) => {                      
+        
         const changedmarkaItip = markaItip.current.value;
         const changedRegNumber = RegNumber.current.value;
         const changedCarUser = CarUser.current.value;
@@ -90,6 +97,7 @@ function EditCarData(props) {
         const changedTipKorisnika = TipKorisnika.current.value;
         const changedVoziloAktivnoOd = VoziloAktivnoOd.current.value;
               
+        dispatch(handleSavingData())
 
         const response = await fetch('./api/editDBCar', {
             method: "PUT",
@@ -111,11 +119,14 @@ function EditCarData(props) {
 
           }).then(
             
-            dispatch(handlePopUpEditeDataState())
+            dispatch(handlePopUpEditeDataState()),            
+            refreshData()           
 
+          );   
 
-          );      
-        }
+          
+            console.log(response)
+        
       
   }
      
@@ -184,7 +195,12 @@ function EditCarData(props) {
                             </div>                          
                             
                         </div>
-                        <button type='button'  onClick={saveData}  >Save</button>
+
+                        {validRegNumber && validMarkaItip 
+                        ? <button type='button'  onClick={saveData}>Save</button>
+                        : <button type='button' className='notAllowed'   disabled={true} >Save</button>
+                        }
+                        
                     </div>                    
                 </form>
                
