@@ -6,7 +6,8 @@ const initialState = {
     currentUrlFd:'',
     insertCar: false,
     loadingDBCars:false,
-    popUpEditeDataState:false,
+    popUpEditeDataState:false,          
+    editeId:"",    
     oldEditeData: {        
     },
     carDBdatafetch: {
@@ -44,7 +45,12 @@ export const carSlice = createSlice({
 
         },
          handlePopAddData:(state) => {
-            state.popAddData = !state.popAddData  
+            state.popAddData = !state.popAddData             
+
+        }, handleWhatIsEdite:(state, msg) => {            
+            state.editeId = msg.payload
+            localStorage.setItem("EditeRows", msg.payload)
+            console.log(state.editeId)
             
 
         },
@@ -53,7 +59,7 @@ export const carSlice = createSlice({
 })
 
 
-export const { insertCarSignUpMsg, getUrlforFetchData ,loadingDBCarsfn, handlePopUpEditeDataState, handlePopAddData, handleOldEditeData, handleSavingData, } = carSlice.actions;
+export const { insertCarSignUpMsg, handleWhatIsEdite, getUrlforFetchData ,loadingDBCarsfn, handlePopUpEditeDataState, handlePopAddData, handleOldEditeData, handleSavingData, } = carSlice.actions;
 export default carSlice.reducer;
 
 

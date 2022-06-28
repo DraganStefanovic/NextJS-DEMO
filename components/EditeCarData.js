@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { useRef } from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import { handlePopUpEditeDataState, handleSavingData} from '../store/carStore';
+import { handlePopUpEditeDataState, handleSavingData, handleWhatIsEdite} from '../store/carStore';
 import { useRouter } from 'next/router';
 
 
@@ -12,8 +12,7 @@ function EditCarData(props) {
     const router = useRouter();
 
     const refreshData = () => {
-     router.replace(router.asPath);
-     console.log("refreshData")
+     router.replace(router.asPath);     
    }
    
   
@@ -49,10 +48,8 @@ function EditCarData(props) {
           }else {
             setisvalidMarkaItip(false)
            
-          }        
-          
-      }     
-
+          } 
+      }
 
     function alphanumeric() {
 
@@ -84,9 +81,7 @@ function EditCarData(props) {
                 setisZaposlen(true);
                 
             }
-        }
-
-          
+        }         
 
     const saveData = async  (e) => {                      
         
@@ -115,28 +110,24 @@ function EditCarData(props) {
                 date:changedRegDateEnd, 
                 tipKorisnika:changedTipKorisnika,  
                 voziloAktivnoOd:changedVoziloAktivnoOd       
-          } )         
+          })
+          })     
+          const resposneStatus = await response
 
-          }).then(
-            
-            dispatch(handlePopUpEditeDataState()),            
-            refreshData()           
-
-          );   
-
-          
-            console.log(response)
+        if(resposneStatus.ok) {
+            dispatch(handlePopUpEditeDataState())
+            refreshData();
+            dispatch(handleWhatIsEdite(oldEditeData.id))
+        }  
         
-      
-  }
+        
+
+    }
      
 
     function popUpEditeData(e)  {
         dispatch(handlePopUpEditeDataState());   
-      } 
-
-
-      
+    }       
 
     return(
         <Fragment>  

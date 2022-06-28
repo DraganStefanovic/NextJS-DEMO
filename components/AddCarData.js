@@ -4,12 +4,17 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { useRef } from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import { handlePopUpEditeDataState, handlePopAddData} from '../store/carStore';
+import { useRouter } from 'next/router';
 
 function AddCarData(props) {    
 
     const dispatch = useDispatch();  
     const oldEditeData = useSelector((state) => state.carSlice.oldEditeData); 
-       
+    
+    const router = useRouter();
+    const refreshData = () => {
+        router.replace(router.asPath);     
+      }
 
     const markaItip = useRef();
     const RegNumber = useRef();  
@@ -98,14 +103,19 @@ function AddCarData(props) {
                 vehicleUser:changedCarUser,
                 date:changedRegDateEnd, 
                 tipKorisnika:changedTipKorisnika,  
-                voziloAktivnoOd:changedVoziloAktivnoOd       
+                voziloAktivnoOd:changedVoziloAktivnoOd,
+                gallery: [],       
           } )         
 
-          }).then(            
-            dispatch(handlePopAddData())
+          })   
+          
+          const resposneStatus = await response
 
-
-          );      
+          if(resposneStatus.ok) {
+            dispatch(handlePopAddData()),
+            console.log("aDD CARS")
+            refreshData();
+          }  
         }
       
   }

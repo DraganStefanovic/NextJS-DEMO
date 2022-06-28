@@ -1,7 +1,7 @@
 import {MongoClient, ObjectId} from 'mongodb';
 
 
-async function editCarRow (e) {  
+async function editCarRow (e, res) {  
  
   const client = await MongoClient.connect('mongodb+srv://Admin:admin123@cluster0.3rzaz.mongodb.net/Cars?retryWrites=true&w=majority');
   const db = client.db();
@@ -11,7 +11,7 @@ async function editCarRow (e) {
       const idRowData = e.body.id.toString().trim();       
       //const result = await userCollection.findOne({_id: ObjectId(idRowData)});
 
-        await carCollection.findOneAndUpdate(
+       const result = await carCollection.findOneAndUpdate(
             { _id: ObjectId(idRowData) },
            { $set: { 
              title: e.body.title,
@@ -25,33 +25,45 @@ async function editCarRow (e) {
             { new: true }
 
         );
+
+        res.status(200).json({ result })
+            
+        client.close();
+
+
       client.close();
 
     }
 
     if (e.method == "POST") {  
 
-      await carCollection.insertOne(
-        {
-        title: e.body.title,
-        regvalue: e.body.registration,
-        date: e.body.date,
-        vehicleUser: e.body.vehicleUser,
-        voziloAktivnoOd: e.body.voziloAktivnoOd,
-        tipKorisnika: e.body.tipKorisnika
-      });
-    
+      // const result =  await carCollection.insertOne(
+      //   {
+      //   title: e.body.title,
+      //   regvalue: e.body.registration,
+      //   date: e.body.date,
+      //   vehicleUser: e.body.vehicleUser,
+      //   voziloAktivnoOd: e.body.voziloAktivnoOd,
+      //   tipKorisnika: e.body.tipKorisnika,
+      //   gallery:[]
+      // });
+
+      // res.status(200).json({ result })
             
-      client.close();
+      // client.close();
+
+      console.log("Sasa")
 
     }
   
     if(e.method == "DELETE") {
 
       const idRowData = e.body.id.toString().trim();   
-      await carCollection.findOneAndDelete(
+      const result = await carCollection.findOneAndDelete(
         { _id: ObjectId(idRowData) }  
     );
+
+    res.status(200).json({ result })
 
     client.close();
   }

@@ -12,22 +12,16 @@ import { handlePopAddData } from '../store/carStore';
 
 function HomePage(props) {   
 
- 
  const popUpEditeDataState = useSelector((state) => state.carSlice.popUpEditeDataState);
  const popUpAddDataState = useSelector((state) => state.carSlice.popAddData ) 
 
  const dispatch = useDispatch(); 
 
- console.log(props)
-
-
-
-
  const handlePopAddDataFn = () => {
   dispatch(handlePopAddData());
  }
 
-
+ 
  
     return(        
             <Layout>
@@ -69,12 +63,7 @@ function HomePage(props) {
                 </table>
                 
                 {popUpEditeDataState && <EditCarData />}
-                {popUpAddDataState && <AddCarData/>}
-                
-
-                
-                
-               
+                {popUpAddDataState && <AddCarData/>}                
             </Layout>   
            
     )

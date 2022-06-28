@@ -1,17 +1,21 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
 import {useDispatch, useSelector} from "react-redux";
 import { handlePopUpEditeDataState, handleOldEditeData} from '../store/carStore';
-
+import { useRouter } from 'next/router';
 
 
 
 function CarsHorisontBox(props) {   
 
-   const popUpEditeDataState = useSelector((state) => state.carSlice.popUpEditeDataState);  
+  const whatIsEditeRow = useSelector((state) => state.carSlice.editeId);  
 
+
+
+
+     
     const dispatch = useDispatch();  
 
     function popUpEditeData(e)  {
@@ -19,9 +23,15 @@ function CarsHorisontBox(props) {
       dispatch(handleOldEditeData(props));  
 
     } 
+
+    const router = useRouter();
+
+    const refreshData = () => {
+      router.replace(router.asPath);     
+    }
  
 
-   const deliteData = async  (e) => {
+   const deliteData = async  (e, res) => {
 
         //const dataRowId = e.target.parentElement.parentElement.dataset.id;
         const dataRowId = e.target.parentElement.parentElement.parentElement.dataset.id;
@@ -37,13 +47,22 @@ function CarsHorisontBox(props) {
             body: JSON.stringify({
               id: dataRowId,              
             })
-          }); 
-       
+          }) 
+         
+        const resposneStatus = await response
+
+        if(resposneStatus.ok) {          
+          refreshData();
+        }     
+          
   } 
     
     return(            
             <React.Fragment>
-                <tr data-id={props.id}>                    
+           
+              
+                <tr data-id={props.id} className= {props.id === whatIsEditeRow ? "Edite" : ""}  >
+                                      
                    <Link href={{pathname:`/cars/${props.registration}`}} ><td className="CarsHorisontBoxTitle linkTitle">{props.title}</td></Link> 
                     <td className="CarsHorisontBoxReg">{props.registration}</td>  
                     <td className="CarsHorisontBoxReg">{props.tipKorisnika}</td>   
