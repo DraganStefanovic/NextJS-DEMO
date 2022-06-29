@@ -11,7 +11,11 @@ function Gallery(props) {
     const dispatch = useDispatch();
 
     const router = useRouter();
-    const currentUrl = router.query.carId;    
+    const currentUrl = router.query.carId;   
+
+    const refreshData = () => {
+      router.replace(router.asPath);     
+    } 
 
     dispatch(getUrlforFetchData(`${currentUrl}`));   
     
@@ -45,7 +49,7 @@ function Gallery(props) {
     console.log(data)
 
     if(image.imageSrc !== null && image.imageSrc !== '') {            
-        const response = await fetch('../pages/api/editDBCar.js', {
+        const response = await fetch('/api/editCarProfil', {
             method:'POST',
             body:JSON.stringify(data),
             headers:{
@@ -54,12 +58,16 @@ function Gallery(props) {
         });
 
         
-        console.log(response)
+        const resposneStatus = await response
+
+        if(resposneStatus.ok) {          
+          refreshData();
+        }   
     }
 
       
    
-   // console.log(response)
+   
 
 }  
 

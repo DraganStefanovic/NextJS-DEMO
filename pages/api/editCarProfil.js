@@ -3,7 +3,7 @@ import {useDispatch, } from "react-redux";
 
 
 
-async function editCarProfil (e) {    
+async function editCarProfil (e, res) {    
       
       console.log(e.body.currentUrl)     
 

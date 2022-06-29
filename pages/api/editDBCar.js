@@ -37,22 +37,21 @@ async function editCarRow (e, res) {
 
     if (e.method == "POST") {  
 
-      // const result =  await carCollection.insertOne(
-      //   {
-      //   title: e.body.title,
-      //   regvalue: e.body.registration,
-      //   date: e.body.date,
-      //   vehicleUser: e.body.vehicleUser,
-      //   voziloAktivnoOd: e.body.voziloAktivnoOd,
-      //   tipKorisnika: e.body.tipKorisnika,
-      //   gallery:[]
-      // });
+      const result =  await carCollection.insertOne(
+        {
+        title: e.body.title,
+        regvalue: e.body.registration,
+        date: e.body.date,
+        vehicleUser: e.body.vehicleUser,
+        voziloAktivnoOd: e.body.voziloAktivnoOd,
+        tipKorisnika: e.body.tipKorisnika,
+        gallery:[]
+      });
 
-      // res.status(200).json({ result })
+      res.status(200).json({ result })
             
-      // client.close();
-
-      console.log("Sasa")
+      client.close();
+    
 
     }
   
